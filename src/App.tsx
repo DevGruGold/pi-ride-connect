@@ -9,7 +9,7 @@ import { mainnet } from 'viem/chains'
 import Index from "./pages/Index";
 
 // 1. Get projectId at https://cloud.walletconnect.com
-const projectId = 'c1598e5f2240e3c9e2d78e86356ded24' // This is a different demo project ID - Replace with your own
+const projectId = 'c1598e5f2240e3c9e2d78e86356ded24' // Demo project ID - Replace with your own
 
 // 2. Create wagmiConfig
 const metadata = {
@@ -28,10 +28,11 @@ const wagmiConfig = defaultWagmiConfig({
 })
 
 // 3. Create modal
-createWeb3Modal({ 
-  wagmiConfig, 
-  projectId, 
-  defaultChain: mainnet 
+createWeb3Modal({
+  wagmiConfig,
+  projectId,
+  defaultChain: mainnet,
+  themeMode: 'dark'
 })
 
 const queryClient = new QueryClient();
