@@ -1,7 +1,45 @@
+import { useState } from "react";
 import { Button } from "@/components/ui/button";
 import { Card } from "@/components/ui/card";
+import RideBooking from "@/components/RideBooking";
+import RideMap from "@/components/RideMap";
 
 const Index = () => {
+  const [isConnected, setIsConnected] = useState(false);
+
+  const handleConnect = () => {
+    setIsConnected(true);
+  };
+
+  if (isConnected) {
+    return (
+      <div className="min-h-screen bg-gradient-to-b from-[#1A1F2C] to-[#7E69AB]">
+        <div className="container mx-auto px-4 py-4">
+          <div className="flex justify-between items-center mb-6">
+            <h1 className="text-3xl font-bold bg-clip-text text-transparent bg-gradient-to-r from-[#9b87f5] to-[#D3E4FD]">
+              Pioneer Pickup
+            </h1>
+            <Button 
+              variant="outline" 
+              className="border-[#9b87f5] text-[#9b87f5]"
+            >
+              Connected
+            </Button>
+          </div>
+          
+          <div className="relative flex gap-4 h-[calc(100vh-8rem)]">
+            <div className="w-full max-w-md">
+              <RideBooking />
+            </div>
+            <div className="flex-1 rounded-lg overflow-hidden">
+              <RideMap />
+            </div>
+          </div>
+        </div>
+      </div>
+    );
+  }
+
   return (
     <div className="min-h-screen bg-gradient-to-b from-[#1A1F2C] to-[#7E69AB] text-white">
       <div className="container mx-auto px-4 py-16">
@@ -22,6 +60,7 @@ const Index = () => {
                 <Button 
                   className="bg-[#9b87f5] hover:bg-[#7E69AB] text-white"
                   size="lg"
+                  onClick={handleConnect}
                 >
                   Connect Wallet
                 </Button>
