@@ -5,11 +5,11 @@ import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import { createWeb3Modal, defaultWagmiConfig } from '@web3modal/wagmi/react'
 import { WagmiConfig } from 'wagmi'
-import { arbitrum, mainnet } from 'viem/chains'
+import { mainnet } from 'viem/chains'
 import Index from "./pages/Index";
 
 // 1. Get projectId at https://cloud.walletconnect.com
-const projectId = '3c3d6b2b624b28f4a046481c44542cd7' // This is a demo project ID - Replace with your own
+const projectId = 'c1598e5f2240e3c9e2d78e86356ded24' // This is a different demo project ID - Replace with your own
 
 // 2. Create wagmiConfig
 const metadata = {
@@ -19,7 +19,7 @@ const metadata = {
   icons: ['https://avatars.githubusercontent.com/u/37784886']
 }
 
-const chains = [mainnet, arbitrum] as const
+const chains = [mainnet] as const
 
 const wagmiConfig = defaultWagmiConfig({
   chains,
