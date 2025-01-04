@@ -3,12 +3,17 @@ import { Button } from "@/components/ui/button";
 import { Card } from "@/components/ui/card";
 import RideBooking from "@/components/RideBooking";
 import RideMap from "@/components/RideMap";
+import { useWeb3Modal } from '@web3modal/wagmi/react'
+import { useAccount } from 'wagmi'
 
 const Index = () => {
   const [isConnected, setIsConnected] = useState(false);
+  const { open } = useWeb3Modal()
+  const { address } = useAccount()
 
-  const handleConnect = () => {
-    setIsConnected(true);
+  const handleConnect = async () => {
+    await open();
+    setIsConnected(!!address);
   };
 
   if (isConnected) {
@@ -22,8 +27,9 @@ const Index = () => {
             <Button 
               variant="outline" 
               className="border-[#9b87f5] text-[#9b87f5]"
+              onClick={() => open()}
             >
-              Connected
+              {address ? `${address.slice(0, 6)}...${address.slice(-4)}` : 'Connected'}
             </Button>
           </div>
           
