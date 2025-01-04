@@ -9,7 +9,7 @@ import { mainnet } from 'viem/chains'
 import Index from "./pages/Index";
 
 // 1. Get projectId at https://cloud.walletconnect.com
-const projectId = '4c46c4d2b6b2c7dd5c1e8f6b2c7dd5c1' // New demo project ID - Replace with your own
+const projectId = '2aca272d18deb10ff748260da5f78bfd' // New demo project ID - Replace with your own
 
 // 2. Create wagmiConfig
 const metadata = {
