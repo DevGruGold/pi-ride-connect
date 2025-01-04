@@ -9,8 +9,8 @@ const RideMap = () => {
   useEffect(() => {
     if (!mapContainer.current) return;
 
-    // Note: In a real app, this would be stored securely
-    mapboxgl.accessToken = "YOUR_MAPBOX_TOKEN";
+    // Using a public demo token - Replace with your own in production!
+    mapboxgl.accessToken = "pk.eyJ1IjoiZXhhbXBsZXMiLCJhIjoiY2p0MG01MXRqMW45cjQzb2R6b2ptc3J4MSJ9.zA2W0IkI0c6KaAhJfk9bWg";
 
     map.current = new mapboxgl.Map({
       container: mapContainer.current,
