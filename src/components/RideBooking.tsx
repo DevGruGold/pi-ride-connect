@@ -4,11 +4,36 @@ import { Input } from "@/components/ui/input";
 import { Card } from "@/components/ui/card";
 import { MapPin, Navigation, Clock } from "lucide-react";
 import { useToast } from "@/hooks/use-toast";
+import { findBestDriver, calculateETA } from "@/utils/pairingAlgorithm";
+import DriverProfile from "./DriverProfile";
+
+// Mock data for demonstration
+const MOCK_DRIVERS = [
+  {
+    id: "1",
+    name: "John Driver",
+    rating: 4.8,
+    rides: 342,
+    vehicle: "Tesla Model 3",
+    location: { latitude: 37.7749, longitude: -122.4194 },
+    isAvailable: true
+  },
+  {
+    id: "2",
+    name: "Sarah Smith",
+    rating: 4.9,
+    rides: 521,
+    vehicle: "Toyota Prius",
+    location: { latitude: 37.7833, longitude: -122.4167 },
+    isAvailable: true
+  }
+];
 
 const RideBooking = () => {
   const [pickup, setPickup] = useState("");
   const [destination, setDestination] = useState("");
   const [isSearching, setIsSearching] = useState(false);
+  const [matchedDriver, setMatchedDriver] = useState<typeof MOCK_DRIVERS[0] | null>(null);
   const { toast } = useToast();
 
   const handleBookRide = () => {
@@ -22,13 +47,33 @@ const RideBooking = () => {
     }
     
     setIsSearching(true);
-    // Simulate finding a driver
+    
+    // Simulate geocoding and finding a driver
     setTimeout(() => {
+      const mockRequest = {
+        riderId: "user123",
+        pickup: { latitude: 37.7749, longitude: -122.4194 },
+        destination: { latitude: 37.7833, longitude: -122.4167 }
+      };
+
+      const bestDriver = findBestDriver(MOCK_DRIVERS, mockRequest);
+      
+      if (bestDriver) {
+        setMatchedDriver(bestDriver);
+        const eta = calculateETA(bestDriver.location, mockRequest.pickup);
+        toast({
+          title: "Driver Found!",
+          description: `${bestDriver.name} will arrive in ${eta} minutes`,
+        });
+      } else {
+        toast({
+          title: "No Drivers Available",
+          description: "Please try again later",
+          variant: "destructive",
+        });
+      }
+      
       setIsSearching(false);
-      toast({
-        title: "Driver Found!",
-        description: "Your driver will arrive in 3 minutes",
-      });
     }, 2000);
   };
 
@@ -56,6 +101,19 @@ const RideBooking = () => {
             className="pl-10 bg-[#1A1F2C] border-[#7E69AB] text-white"
           />
         </div>
+
+        {matchedDriver && (
+          <div className="mt-4">
+            <h3 className="text-sm text-[#8E9196] mb-2">Your Driver</h3>
+            <DriverProfile
+              name={matchedDriver.name}
+              rating={matchedDriver.rating}
+              rides={matchedDriver.rides}
+              vehicle={matchedDriver.vehicle}
+              isAvailable={matchedDriver.isAvailable}
+            />
+          </div>
+        )}
 
         <div className="flex items-center gap-2 text-[#8E9196]">
           <Clock className="h-5 w-5" />
