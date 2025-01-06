@@ -7,6 +7,8 @@ import { createWeb3Modal, defaultWagmiConfig } from '@web3modal/wagmi/react'
 import { WagmiConfig } from 'wagmi'
 import { mainnet } from 'viem/chains'
 import Index from "./pages/Index";
+import About from "./pages/About";
+import Contact from "./pages/Contact";
 
 // 1. Get projectId at https://cloud.walletconnect.com
 const projectId = '93d6f5f37345b4cf181b296567177797' // Using the project ID from custom instructions
@@ -46,6 +48,8 @@ const App = () => (
         <BrowserRouter>
           <Routes>
             <Route path="/" element={<Index />} />
+            <Route path="/about" element={<About />} />
+            <Route path="/contact" element={<Contact />} />
           </Routes>
         </BrowserRouter>
       </TooltipProvider>
